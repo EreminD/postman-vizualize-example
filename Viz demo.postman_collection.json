@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "4474d437-1ff9-423d-992a-141c9c2e66e4",
+		"name": "Viz demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://httpbin.org/post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `",
+							"<h1>Headers</h1>",
+							"    <p>юзер-агент = {{resp.headers.User-Agent}}</p>",
+							"    <p>токен = {{resp.headers.Postman-Token}}</p>",
+							"",
+							"<h1>Body</h1>",
+							"    <p>айди = {{resp.json.id}}</p>",
+							"    <p>Текст = {{resp.json.text}}</p>",
+							"    <p>Список:</p>",
+							"",
+							"    <ul>",
+							"        {{#each resp.json.arr}}",
+							"            <li>{{name}} | {{email}}</li>",
+							"        {{/each}}",
+							"    </ul>",
+							"",
+							"<!-- здесь можете поиграться с CSS для стилизации-->",
+							"<style>",
+							"p, li{",
+							"    margin: 0",
+							"}",
+							"h1 {",
+							"    margin-top: 30",
+							"}",
+							"</style>",
+							"`;",
+							"",
+							"pm.visualizer.set(template, {",
+							"    resp: pm.response.json()",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"text\": \"Участники\",\n    \"data\": {\n        \"bool\": true,\n        \"num\": 42\n    },\n    \"arr\": [\n        { \"name\": \"Viktor\", \"email\": \"viktor-test@mail.ru\" },\n        { \"name\": \"Alena\", \"email\": \"alena-test@mail.ru\" },\n        { \"name\": \"Sasha\", \"email\": \"sasha-test@mail.ru\" }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://httpbin.org/post",
+					"protocol": "https",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
